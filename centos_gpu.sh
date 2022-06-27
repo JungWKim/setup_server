@@ -42,7 +42,7 @@ cat >> ${user_home}/.bashrc << EOF
 export PATH=/usr/local/cuda/bin:${PATH}
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
 EOF
-source i${user_home}/.bashrc
+source ${user_home}/.bashrc
 
 tar -zxvf cudnn-11.2-linux-x64-v8.1.0.77.tgz 
 

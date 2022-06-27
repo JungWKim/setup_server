@@ -13,15 +13,17 @@ sed -i 's/1/0/g' /etc/apt/apt.conf.d/20auto-upgrades
 apt install -y net-tools nfs-common
 
 #----------- mount disks
-parted -s -a optimal -- /dev/sda mklabel gpt mkpart primary xfs 1 -1
+parted -s -a optimal -- /dev/sdb mklabel gpt mkpart primary xfs 1 -1
 mkdir /data
-mkfs.xfs /dev/sda1
-echo "/dev/sda1	/data	xfs	defaults	0	0" >> /etc/fstab
+mkfs.xfs /dev/sdb1
+echo "/dev/sdb1	/data	xfs	defaults	0	0" >> /etc/fstab
 mount -a
 
 #----------- prerequisite for installation of nvidia driver / cuda / cudnn
 apt-get remove Nvidia* && sudo apt autoremove
-apt-get install -y dkms build-essential linux-headers-generic
+apt-get install -y build-essential
+apt-get install -y dkms
+apt-get install -y linux-headers-generic
 cat >> /etc/modprobe.d/blacklist.conf << EOF
 blacklist nouveau
 blacklist lbm-nouveau
@@ -38,7 +40,7 @@ cat >> ${user_home}/.bashrc << EOF
 export PATH=/usr/local/cuda/bin:${PATH}
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
 EOF
-source i${user_home}/.bashrc
+source ${user_home}/.bashrc
 
 tar -zxvf cudnn-11.2-linux-x64-v8.1.0.77.tgz 
 
