@@ -29,7 +29,7 @@ fi
 
 #----------- prerequisite for installation of nvidia driver / cuda / cudnn
 
-if [ ${disk_presence} = yes ] || [ ${disk_presence} = y ] ; then
+if [ ${gpu_presence} = yes ] || [ ${gpu_presence} = y ] ; then
 
 	apt remove Nvidia* && sudo apt autoremove
 	apt update
