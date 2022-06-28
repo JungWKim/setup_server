@@ -68,7 +68,6 @@ EOF
 	git clone https://github.com/JungWKim/Docker_NvidiaDocker_Install_Ubuntu20.04.git
 	mv Docker_NvidiaDocker_Install_Ubuntu20.04/docker_nvidiaDocker_install_Ubuntu20.04.sh .
 	rm -rf Docker_NvidiaDocker_Install_Ubuntu20.04
-	chmod a+x docker_nvidiaDocker_install_Ubuntu20.04.sh 
 	./docker_nvidiaDocker_install_Ubuntu20.04.sh 
 
 #------------ download gpu-burn

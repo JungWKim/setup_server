@@ -70,7 +70,6 @@ EOF
 	git clone https://github.com/JungWKim/Docker_NvidiaDocker_Install_CentOS7.9.git
 	mv Docker_NvidiaDocker_Install_CentOS7.9/docker_nvidiaDocker_install_CentOS7.9.sh .
 	rm -rf Docker_NvidiaDocker_Install_CentOS7.9
-	chmod a+x docker_nvidiaDocker_install_CentOS7.9.sh
 	./docker_nvidiaDocker_install_CentOS7.9.sh
 
 #------------ download gpu-burn
