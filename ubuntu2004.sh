@@ -72,8 +72,7 @@ EOF
 
 #------------ download gpu-burn
 	git clone https://github.com/wilicc/gpu-burn
-	cd gpu-burn
-	make
+
 	cd ${user_home}
 
 fi
