@@ -58,7 +58,7 @@ EOF
 	source ${user_home}/.bashrc
 
 	sh NVIDIA-Linux-x86_64-510.54.run
-	sh cuda_11.2.0_460.27.04_linux.run
+	sh cuda_11.2.0_460.27.04_linux.run --override
 
 	tar -zxvf cudnn-11.2-linux-x64-v8.1.0.77.tgz 
 	cp cuda/include/cudnn*.h /usr/local/cuda/include
