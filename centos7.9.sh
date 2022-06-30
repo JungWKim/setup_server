@@ -4,7 +4,9 @@ file_server=192.168.1.59
 file_server_id=root
 user_home=/root
 disk_presence=no
-gpu_presence=yes
+gpu_presence=no
+docker_install=no
+nvidia_docker_install=no
 intel_raid_presence=no
 
 cd ${user_home}
@@ -79,6 +81,43 @@ EOF
         git clone https://github.com/wilicc/gpu-burn
 
         cd ${user_home}
+
+fi
+
+#------------- install docker -------------
+if [ ${docker_install} = yes ] || [ ${docker_install} == y]; then
+	yum remove docker \
+                   docker-client \
+                   docker-client-latest \
+                   docker-common \
+                   docker-latest \
+                   docker-latest-logrotate \
+                   docker-logrotate \
+                   docker-engine
+
+	yum install -y yum-utils
+
+	yum-config-manager \
+	    --add-repo \
+	    https://download.docker.com/linux/centos/docker-ce.repo
+
+	yum install docker-ce docker-ce-cli containerd.io -y
+
+	systemctl start docker
+	systemctl enable docker
+
+fi
+
+#------------- install nvidia docker -------------
+if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} == y]; then
+	distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
+	   && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | sudo tee /etc/yum.repos.d/nvidia-docker.repo
+
+	yum clean expire-cache
+
+	yum install -y nvidia-docker2
+
+	systemctl restart docker
 
 fi
 

@@ -2,9 +2,11 @@
 
 file_server=192.168.1.59
 file_server_id=root
-user_home=/home/gpuadmin
+user_home=/home/sadmin
 disk_presence=no
-gpu_presence=yes
+gpu_presence=no
+docker_install=no
+nvidia_docker_install=no
 intel_raid_presence=no
 
 cd ${user_home}
@@ -77,6 +79,51 @@ EOF
 	git clone https://github.com/wilicc/gpu-burn
 
 	cd ${user_home}
+
+fi
+
+#------------ install docker && nvidia container runtime
+if [ ${docker_install} = yes ] || [ ${docker_install} = y]; then
+
+	apt update
+	apt install -y apt-transport-https ca-certificates curl software-properties-common
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+	apt update
+	apt-cache policy docker-ce
+	apt install -y docker-ce
+
+#------------- check docker activation
+	echo -e "\n\n\n------------------------------------------ docker images -----------------------------------------------"
+	docker images
+	echo -e "\n\n\n----------------------------------------- docker --version ---------------------------------------------"
+	docker --version
+	echo -e "\n\n\n------------------------------------- systemctl status docker ------------------------------------------"
+	systemctl status docker
+
+fi
+
+#------------- add nvidia docker repository
+if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} = y]; then
+
+	curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+	distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+	curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+	apt update
+
+#------------- install nvidia docker && stop docker activation
+	apt install -y nvidia-docker2
+	pkill -SIGHUP dockerd
+
+#------------- check nvidia docker activation
+	echo -e "\n\n\n------------------------------------------ docker images -----------------------------------------------"
+	docker images
+	echo -e "\n\n\n----------------------------------------- docker --version ---------------------------------------------"
+	docker --version
+	echo -e "\n\n\n------------------------------------- systemctl status docker ------------------------------------------"
+	systemctl status docker
+	echo -e "\n\n\n------------------------------------- nvidia-docker --version ------------------------------------------"
+	nvidia-docker --version
 
 fi
 
