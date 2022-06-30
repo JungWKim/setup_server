@@ -59,7 +59,8 @@ EOF
 export PATH=/usr/local/cuda/bin:${PATH}
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
 EOF
-	source ${user_home}/.bashrc
+
+	rmmod nouveau
 
 	sh NVIDIA-Linux-x86_64-510.54.run
 	nvidia-smi
