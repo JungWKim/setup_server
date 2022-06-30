@@ -5,6 +5,7 @@ file_server_id=root
 user_home=/home/gpuadmin
 disk_presence=no
 gpu_presence=yes
+intel_raid_presence=no
 
 cd ${user_home}
 
@@ -75,6 +76,19 @@ EOF
 #------------ download gpu-burn
 	git clone https://github.com/wilicc/gpu-burn
 
+	cd ${user_home}
+
+fi
+
+#------------ intel raid web console install
+if [ ${intel_raid_presence} = yes ] || [ ${intel_raid_presence} = y]; then
+
+	apt install -y unzip
+	scp ${file_server_id}@${file_server}:/root/files/Intel_RWC3_Linux_007.019.006.000.zip .
+	unzip Intel_RWC3_Linux_007.019.006.000.zip
+	cd Intel_RWC3_Linux_007.019.006.000/x64
+	chmod a+x *.sh
+	./install_deb.sh
 	cd ${user_home}
 
 fi
