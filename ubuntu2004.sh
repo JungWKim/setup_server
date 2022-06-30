@@ -2,15 +2,11 @@
 
 file_server=192.168.1.59
 file_server_id=root
-user_home=/home/gpuadmin
+user_home=/home/sadmin
 disk_presence=no
-gpu_presence=yes
+gpu_presence=no
 
-#----------- download nvidia driver / cuda / cudnn installation files
 cd ${user_home}
-scp ${file_server_id}@${file_server}:/root/files/NVIDIA-Linux-x86_64-510.54.run .
-scp ${file_server_id}@${file_server}:/root/files/cuda_11.2.0_460.27.04_linux.run .
-scp ${file_server_id}@${file_server}:/root/files/cudnn-11.2-linux-x64-v8.1.0.77.tgz .
 
 #----------- install basic packages
 sed -i 's/1/0/g' /etc/apt/apt.conf.d/20auto-upgrades
@@ -30,6 +26,12 @@ fi
 #----------- prerequisite for installation of nvidia driver / cuda / cudnn
 
 if [ ${gpu_presence} = yes ] || [ ${gpu_presence} = y ] ; then
+
+#----------- download nvidia driver / cuda / cudnn installation files
+	scp ${file_server_id}@${file_server}:/root/files/NVIDIA-Linux-x86_64-510.54.run .
+	scp ${file_server_id}@${file_server}:/root/files/cuda_11.2.0_460.27.04_linux.run .
+	scp ${file_server_id}@${file_server}:/root/files/cudnn-11.2-linux-x64-v8.1.0.77.tgz .
+
 
 	apt remove Nvidia* && sudo apt autoremove
 	apt update

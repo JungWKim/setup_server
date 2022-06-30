@@ -6,11 +6,7 @@ user_home=/root
 disk_presence=no
 gpu_presence=yes
 
-#----------- download nvidia driver / cuda / cudnn installation files
 cd ${user_home}
-scp ${file_server_id}@${file_server}:/root/files/NVIDIA-Linux-x86_64-510.54.run .
-scp ${file_server_id}@${file_server}:/root/files/cuda_11.2.0_460.27.04_linux.run .
-scp ${file_server_id}@${file_server}:/root/files/cudnn-11.2-linux-x64-v8.1.0.77.tgz .
 
 #----------- install basic packages
 yum install -y net-tools createrepo nfs-utils
@@ -29,6 +25,12 @@ fi
 #----------- prerequisite for installation of nvidia driver / cuda / cudnn
 
 if [ ${gpu_presence} = yes ] || [ ${gpu_presence} = y ] ; then
+
+#----------- download nvidia driver / cuda / cudnn installation files
+	scp ${file_server_id}@${file_server}:/root/files/NVIDIA-Linux-x86_64-510.54.run .
+	scp ${file_server_id}@${file_server}:/root/files/cuda_11.2.0_460.27.04_linux.run .
+	scp ${file_server_id}@${file_server}:/root/files/cudnn-11.2-linux-x64-v8.1.0.77.tgz .
+
 
 	yum update -y
 	yum groupinstall "Development Tools" -y
