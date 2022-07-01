@@ -78,7 +78,7 @@ EOF
 fi
 
 #------------ install docker && nvidia container runtime
-if [ ${docker_install} = yes ] || [ ${docker_install} = y]; then
+if [ ${docker_install} = yes ] || [ ${docker_install} = y] ; then
 
 	apt update
 	apt install -y apt-transport-https ca-certificates curl software-properties-common
