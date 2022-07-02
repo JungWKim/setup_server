@@ -78,7 +78,7 @@ EOF
 fi
 
 #------------- install docker -------------
-if [ ${docker_install} = yes ] || [ ${docker_install} == y]; then
+if [ ${docker_install} = yes ] || [ ${docker_install} == y ]; then
 	yum remove docker \
                    docker-client \
                    docker-client-latest \
@@ -99,7 +99,7 @@ if [ ${docker_install} = yes ] || [ ${docker_install} == y]; then
 fi
 
 #------------- install nvidia docker -------------
-if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} == y]; then
+if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} == y ]; then
 	distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
 	   && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | sudo tee /etc/yum.repos.d/nvidia-docker.repo
 
