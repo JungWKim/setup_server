@@ -69,15 +69,8 @@ EOF
 	cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
 	chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
 
-#------------ install docker && nvidia container runtime
-	git clone https://github.com/JungWKim/Docker_NvidiaDocker_Install_Ubuntu20.04.git
-	mv Docker_NvidiaDocker_Install_Ubuntu20.04/docker_nvidiaDocker_install_Ubuntu20.04.sh .
-	rm -rf Docker_NvidiaDocker_Install_Ubuntu20.04
-	./docker_nvidiaDocker_install_Ubuntu20.04.sh 
-
 #------------ download gpu-burn
 	git clone https://github.com/wilicc/gpu-burn
-
 	cd ${user_home}
 
 fi
