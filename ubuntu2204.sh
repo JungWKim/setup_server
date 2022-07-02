@@ -97,17 +97,14 @@ if [ ${docker_install} = yes ] || [ ${docker_install} = y ]; then
 
 fi
 
-#------------- add nvidia docker repository
-if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} = y ]; then
-
-	curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
-	distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-	curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-	apt update
-
 #------------- install nvidia docker
-	apt install -y nvidia-docker2
-	pkill -SIGHUP dockerd
+if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} = y ]; then
+	
+	distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+	curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+	curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+ 	apt update && apt install -y nvidia-container-toolkit
+	systemctl restart docker
 
 	echo -e "\n\n\n------------------------------------------ docker images -----------------------------------------------"
 	docker images
