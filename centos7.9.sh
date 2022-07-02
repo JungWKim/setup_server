@@ -71,15 +71,8 @@ EOF
         cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
         chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
 
-#------------ install docker && nvidia container runtime
-	git clone https://github.com/JungWKim/Docker_NvidiaDocker_Install_CentOS7.9.git
-	mv Docker_NvidiaDocker_Install_CentOS7.9/docker_nvidiaDocker_install_CentOS7.9.sh .
-	rm -rf Docker_NvidiaDocker_Install_CentOS7.9
-	./docker_nvidiaDocker_install_CentOS7.9.sh
-
 #------------ download gpu-burn
         git clone https://github.com/wilicc/gpu-burn
-
         cd ${user_home}
 
 fi
@@ -96,13 +89,10 @@ if [ ${docker_install} = yes ] || [ ${docker_install} == y]; then
                    docker-engine
 
 	yum install -y yum-utils
-
 	yum-config-manager \
 	    --add-repo \
 	    https://download.docker.com/linux/centos/docker-ce.repo
-
 	yum install docker-ce docker-ce-cli containerd.io -y
-
 	systemctl start docker
 	systemctl enable docker
 
@@ -114,9 +104,7 @@ if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} == y]; then
 	   && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | sudo tee /etc/yum.repos.d/nvidia-docker.repo
 
 	yum clean expire-cache
-
 	yum install -y nvidia-docker2
-
 	systemctl restart docker
 
 fi
