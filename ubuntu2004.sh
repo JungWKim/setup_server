@@ -78,7 +78,7 @@ EOF
 fi
 
 #------------ install docker
-if [ ${docker_install} = yes ] || [ ${docker_install} = y] ; then
+if [ ${docker_install} = yes ] || [ ${docker_install} = y ] ; then
 
 	apt update
 	apt install -y ca-certificates curl gnupg lsb-release
@@ -100,7 +100,7 @@ if [ ${docker_install} = yes ] || [ ${docker_install} = y] ; then
 fi
 
 #------------- add nvidia docker repository
-if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} = y] ; then
+if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} = y ] ; then
 
 	distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 	curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
@@ -123,7 +123,7 @@ if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} = y] ; then
 fi
 
 #------------ intel raid web console install
-if [ ${intel_raid_presence} = yes ] || [ ${intel_raid_presence} = y] ; then
+if [ ${intel_raid_presence} = yes ] || [ ${intel_raid_presence} = y ] ; then
 
 	apt install -y unzip
 	scp ${file_server_id}@${file_server}:/root/files/Intel_RWC3_Linux_007.019.006.000.zip .
