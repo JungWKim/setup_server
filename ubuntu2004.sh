@@ -13,7 +13,7 @@ cd ${user_home}
 
 #----------- install basic packages
 sed -i 's/1/0/g' /etc/apt/apt.conf.d/20auto-upgrades
-apt install -y net-tools nfs-common
+apt install -y net-tools nfs-common xfsprogs
 
 #----------- mount disks
 if [ ${disk_presence} = yes ] || [ ${disk_presence} = y ] ; then
