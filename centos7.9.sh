@@ -64,6 +64,7 @@ EOF
 	source ${user_home}/.bashrc
 
 	sh NVIDIA-Linux-x86_64-510.54.run
+	nvidia-smi
 	sh cuda_11.2.0_460.27.04_linux.run
 
 	tar -zxvf cudnn-11.2-linux-x64-v8.1.0.77.tgz 
@@ -87,6 +88,13 @@ if [ ${docker_install} = yes ] || [ ${docker_install} == y ]; then
 	yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
 	systemctl start docker
 	systemctl enable docker
+	
+	echo -e "\n\n\n------------------------------------------ docker images -----------------------------------------------"
+	docker images
+	echo -e "\n\n\n----------------------------------------- docker --version ---------------------------------------------"
+	docker --version
+	echo -e "\n\n\n------------------------------------- systemctl status docker ------------------------------------------"
+	systemctl status docker
 
 fi
 
@@ -98,6 +106,15 @@ if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} == y ]; then
 	yum clean expire-cache
 	yum install -y nvidia-docker2
 	systemctl restart docker
+	
+	echo -e "\n\n\n------------------------------------------ docker images -----------------------------------------------"
+	docker images
+	echo -e "\n\n\n----------------------------------------- docker --version ---------------------------------------------"
+	docker --version
+	echo -e "\n\n\n------------------------------------- systemctl status docker ------------------------------------------"
+	systemctl status docker
+	echo -e "\n\n\n------------------------------------- nvidia-docker --version ------------------------------------------"
+	nvidia-container-toolkit
 
 fi
 
