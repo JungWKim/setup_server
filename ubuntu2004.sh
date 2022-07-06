@@ -115,7 +115,7 @@ if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} = y ] ; then
 	echo -e "\n\n\n------------------------------------- systemctl status docker ------------------------------------------"
 	systemctl status docker
 	echo -e "\n\n\n------------------------------------- nvidia-docker --version ------------------------------------------"
-	nvidia-docker --version
+	nvidia-container-toolkit
 
 fi
 
