@@ -119,7 +119,7 @@ if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} == y ]; then
 fi
 
 #------------ intel raid web console install
-if [ ${intel_raid_presence} = yes ] || [ ${intel_raid_presence} = y]; then
+if [ ${intel_raid_presence} = yes ] || [ ${intel_raid_presence} = y ]; then
 
 	scp ${file_server_id}@${file_server}:/root/files/Intel_RWC3_Linux_007.019.006.000.zip .
 	unzip Intel_RWC3_Linux_007.019.006.000.zip
