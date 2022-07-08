@@ -31,9 +31,6 @@ fi
 if [ ${gpu_presence} = yes ] || [ ${gpu_presence} = y ] ; then
 
 #----------- download nvidia driver / cuda / cudnn installation files
-	scp ${file_server_id}@${file_server}:/root/files/NVIDIA-Linux-x86_64-510.54.run .
-	scp ${file_server_id}@${file_server}:/root/files/cuda_11.2.0_460.27.04_linux.run .
-	scp ${file_server_id}@${file_server}:/root/files/cudnn-11.2-linux-x64-v8.1.0.77.tgz .
 
 	apt remove Nvidia* && sudo apt autoremove
 	apt update
@@ -60,6 +57,10 @@ export PATH=/usr/local/cuda/bin:${PATH}
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
 EOF
 	source ${user_home}/.bashrc
+	
+	scp ${file_server_id}@${file_server}:/root/files/NVIDIA-Linux-x86_64-510.54.run .
+	scp ${file_server_id}@${file_server}:/root/files/cuda_11.2.0_460.27.04_linux.run .
+	scp ${file_server_id}@${file_server}:/root/files/cudnn-11.2-linux-x64-v8.1.0.77.tgz .
 
 	sh NVIDIA-Linux-x86_64-510.54.run
 	sh cuda_11.2.0_460.27.04_linux.run --override
