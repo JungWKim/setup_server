@@ -3,6 +3,11 @@
 file_server=192.168.1.59
 file_server_id=root
 user_home=/home/sadmin
+
+nvidia_driver=NVIDIA-Linux-x86_64-510.54.run
+cuda_runfile=cuda_11.2.0_460.27.04_linux.run
+cudnn_archive=cudnn-11.2-linux-x64-v8.1.0.77.tgz
+
 disk_presence=no
 gpu_presence=no
 docker_install=no
@@ -58,9 +63,9 @@ EOF
 
 	rmmod nouveau
 	
-	scp ${file_server_id}@${file_server}:/root/files/NVIDIA-Linux-x86_64-510.54.run .
-	scp ${file_server_id}@${file_server}:/root/files/cuda_11.2.0_460.27.04_linux.run .
-	scp ${file_server_id}@${file_server}:/root/files/cudnn-11.2-linux-x64-v8.1.0.77.tgz .
+	scp ${file_server_id}@${file_server}:/root/files/${nvidia_driver} .
+	scp ${file_server_id}@${file_server}:/root/files/${cuda_runfile} .
+	scp ${file_server_id}@${file_server}:/root/files/${cudnn_archive} .
 
 	sh NVIDIA-Linux-x86_64-510.54.run
 	nvidia-smi
