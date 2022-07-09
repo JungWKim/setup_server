@@ -16,9 +16,11 @@ intel_raid_presence=no
 
 cd ${user_home}
 
-#----------- install basic packages
+#----------- prevent package auto upgrade
 sed -i 's/1/0/g' /etc/apt/apt.conf.d/20auto-upgrades
-apt install -y net-tools nfs-common
+
+#----------- install basic packages
+apt install -y net-tools nfs-common xfsprogs
 
 #----------- mount disks
 if [ ${disk_presence} = yes ] || [ ${disk_presence} = y ] ; then
@@ -31,7 +33,7 @@ if [ ${disk_presence} = yes ] || [ ${disk_presence} = y ] ; then
 
 fi
 
-#----------- prerequisite for installation of nvidia driver / cuda / cudnn
+#----------- install nvidia driver / cuda / cudnn
 
 if [ ${gpu_presence} = yes ] || [ ${gpu_presence} = y ] ; then
 
@@ -68,6 +70,7 @@ EOF
 	scp ${file_server_id}@${file_server}:/root/files/${cudnn_archive} .
 
 	sh NVIDIA-Linux-x86_64-510.54.run
+	nvidia-smi
 	sh cuda_11.2.0_460.27.04_linux.run --override
 
 	tar -zxvf cudnn-11.2-linux-x64-v8.1.0.77.tgz 
@@ -123,7 +126,7 @@ if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} = y ]; then
 
 fi
 
-#------------ intel raid web console install
+#------------ install intel raid web console
 if [ ${intel_raid_presence} = yes ] || [ ${intel_raid_presence} = y]; then
 
 	apt install -y unzip

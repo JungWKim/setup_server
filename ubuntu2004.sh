@@ -16,8 +16,10 @@ intel_raid_presence=no
 
 cd ${user_home}
 
-#----------- install basic packages
+#----------- prevent package auto upgrade
 sed -i 's/1/0/g' /etc/apt/apt.conf.d/20auto-upgrades
+
+#----------- install basic packages
 apt install -y net-tools nfs-common xfsprogs
 
 #----------- mount disks
@@ -31,7 +33,7 @@ if [ ${disk_presence} = yes ] || [ ${disk_presence} = y ] ; then
 
 fi
 
-#----------- prerequisite for installation of nvidia driver / cuda / cudnn
+#----------- install nvidia driver / cuda / cudnn
 
 if [ ${gpu_presence} = yes ] || [ ${gpu_presence} = y ] ; then
 
@@ -124,7 +126,7 @@ if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} = y ] ; then
 
 fi
 
-#------------ intel raid web console install
+#------------ install intel raid web console
 if [ ${intel_raid_presence} = yes ] || [ ${intel_raid_presence} = y ] ; then
 
 	apt install -y unzip
