@@ -4,8 +4,7 @@ file_server=192.168.1.59
 file_server_id=root
 user_home=/home/sadmin
 
-nvidia_driver=NVIDIA-Linux-x86_64-510.54.run
-cuda_runfile=cuda_11.2.0_460.27.04_linux.run
+cuda_runfile=cuda_11.6.0_510.39.01_linux.run
 cudnn_archive=cudnn-11.2-linux-x64-v8.1.0.77.tgz
 
 disk_presence=no
@@ -65,18 +64,13 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
 EOF
 	source ${user_home}/.bashrc
 	
-	scp ${file_server_id}@${file_server}:/root/files/${nvidia_driver} .
 	scp ${file_server_id}@${file_server}:/root/files/${cuda_runfile} .
 	scp ${file_server_id}@${file_server}:/root/files/${cudnn_archive} .
 
-	sh NVIDIA-Linux-x86_64-510.54.run
-	nvidia-smi
-	sh cuda_11.2.0_460.27.04_linux.run --override
+	apt install -y nvidia-driver-510-server
+	sh ${cuda_runfile} --override
 
-	tar -zxvf cudnn-11.2-linux-x64-v8.1.0.77.tgz 
-	cp cuda/include/cudnn*.h /usr/local/cuda/include
-	cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
-	chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
+	tar -zxvf ${cudnn_archive} 
 
 #------------ download gpu-burn
 	git clone https://github.com/wilicc/gpu-burn

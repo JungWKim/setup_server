@@ -4,8 +4,8 @@ file_server=192.168.1.59
 file_server_id=root
 user_home=/root
 
-nvidia_driver=NVIDIA-Linux-x86_64-510.54.run
-cuda_runfile=cuda_11.2.0_460.27.04_linux.run
+nvidia_driver=NVIDIA-Linux-x86_64-510.73.08.run
+cuda_runfile=cuda_11.6.0_510.39.01_linux.run
 cudnn_archive=cudnn-11.2-linux-x64-v8.1.0.77.tgz
 
 disk_presence=no
@@ -68,14 +68,11 @@ EOF
 	scp ${file_server_id}@${file_server}:/root/files/${cuda_runfile} .
 	scp ${file_server_id}@${file_server}:/root/files/${cudnn_archive} .
 	
-	sh NVIDIA-Linux-x86_64-510.54.run
+	sh ${nvidia_driver}
 	nvidia-smi
-	sh cuda_11.2.0_460.27.04_linux.run
+	sh ${cuda_runfile} 
 
-	tar -zxvf cudnn-11.2-linux-x64-v8.1.0.77.tgz 
-	cp cuda/include/cudnn*.h /usr/local/cuda/include
-        cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
-        chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
+	tar -zxvf ${cudnn_archive} 
 
 #------------ download gpu-burn
         git clone https://github.com/wilicc/gpu-burn
