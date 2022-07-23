@@ -101,8 +101,6 @@ if [ ${docker_install} = yes ] || [ ${docker_install} = y ] ; then
 	docker images
 	echo -e "\n\n\n----------------------------------------- docker --version ---------------------------------------------"
 	docker --version
-	echo -e "\n\n\n------------------------------------- systemctl status docker ------------------------------------------"
-	systemctl status docker
 
 fi
 
@@ -119,8 +117,6 @@ if [ ${nvidia_docker_install} = yes ] || [ ${nvidia_docker_install} = y ] ; then
 	docker images
 	echo -e "\n\n\n----------------------------------------- docker --version ---------------------------------------------"
 	docker --version
-	echo -e "\n\n\n------------------------------------- systemctl status docker ------------------------------------------"
-	systemctl status docker
 	echo -e "\n\n\n------------------------------------- nvidia-docker --version ------------------------------------------"
 	nvidia-container-toolkit
 
