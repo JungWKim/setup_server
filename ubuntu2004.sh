@@ -69,11 +69,11 @@ EOF
 	scp ${file_server_id}@${file_server}:/root/files/${cuda_runfile} .
 	scp ${file_server_id}@${file_server}:/root/files/${cudnn_archive} .
 
-	sh NVIDIA-Linux-x86_64-510.54.run
+	sh ${nvidia_driver}
 	nvidia-smi
-	sh cuda_11.2.0_460.27.04_linux.run
+	sh ${cuda_runfile}
 
-	tar -zxvf cudnn-11.2-linux-x64-v8.1.0.77.tgz 
+	tar -zxvf ${cudnn_archive}
 	cp cuda/include/cudnn*.h /usr/local/cuda/include
 	cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
 	chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
