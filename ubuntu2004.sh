@@ -2,13 +2,13 @@
 
 file_server=192.168.1.59
 file_server_id=root
-user_home=/home/sadmin
+user_home=/home/gpuadmin
 
 cuda_runfile=cuda_11.6.0_510.39.01_linux.run
 cudnn_archive=cudnn-linux-x86_64-8.4.0.27_cuda11.6-archive.tar.xz
 
 disk_presence=no
-gpu_presence=no
+gpu_presence=yes
 docker_install=no
 nvidia_docker_install=no
 intel_raid_presence=no
@@ -38,7 +38,6 @@ if [ ${gpu_presence} = yes ] || [ ${gpu_presence} = y ] ; then
 
 #----------- download nvidia driver / cuda / cudnn installation files
 
-	apt remove Nvidia* && sudo apt autoremove
 	apt update
 	apt install -y build-essential
 	apt install -y linux-headers-generic
@@ -68,6 +67,8 @@ EOF
 	scp ${file_server_id}@${file_server}:/root/files/${cudnn_archive} .
 
 	apt install -y nvidia-driver-510-server
+	modprobe nvidia
+	nvidia-smi
 	sh ${cuda_runfile} 
 
 	tar -xvf ${cudnn_archive} 

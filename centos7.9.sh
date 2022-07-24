@@ -6,7 +6,8 @@ user_home=/root
 
 nvidia_driver=NVIDIA-Linux-x86_64-510.73.08.run
 cuda_runfile=cuda_11.6.0_510.39.01_linux.run
-cudnn_archive=cudnn-11.2-linux-x64-v8.1.0.77.tgz
+cudnn_archive=cudnn-linux-x86_64-8.4.0.27_cuda11.6-archive.tar.xz
+
 
 disk_presence=no
 gpu_presence=no
@@ -72,7 +73,10 @@ EOF
 	nvidia-smi
 	sh ${cuda_runfile} 
 
-	tar -zxvf ${cudnn_archive} 
+	tar -xvf ${cudnn_archive} 
+	chmod a+r cudnn-linux-x86_64-8.4.0.27_cuda11.6-archive/include/* cudnn-linux-x86_64-8.4.0.27_cuda11.6-archive/lib/*
+	cp cudnn-linux-x86_64-8.4.0.27_cuda11.6-archive/include/* /usr/local/cuda/include
+	cp cudnn-linux-x86_64-8.4.0.27_cuda11.6-archive/lib/* /usr/local/cuda/lib64
 
 #------------ download gpu-burn
         git clone https://github.com/wilicc/gpu-burn

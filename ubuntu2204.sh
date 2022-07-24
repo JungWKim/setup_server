@@ -5,7 +5,8 @@ file_server_id=root
 user_home=/home/sadmin
 
 cuda_runfile=cuda_11.6.0_510.39.01_linux.run
-cudnn_archive=cudnn-11.2-linux-x64-v8.1.0.77.tgz
+cudnn_archive=cudnn-linux-x86_64-8.4.0.27_cuda11.6-archive.tar.xz
+
 
 disk_presence=no
 gpu_presence=no
@@ -38,7 +39,6 @@ if [ ${gpu_presence} = yes ] || [ ${gpu_presence} = y ] ; then
 
 #----------- download nvidia driver / cuda / cudnn installation files
 
-	apt remove Nvidia* && sudo apt autoremove
 	apt update
 	apt install -y build-essential
 	apt install -y linux-headers-generic
@@ -68,9 +68,14 @@ EOF
 	scp ${file_server_id}@${file_server}:/root/files/${cudnn_archive} .
 
 	apt install -y nvidia-driver-510-server
+	modprobe nvidia
+	nvidia-smi
 	sh ${cuda_runfile} --override
 
-	tar -zxvf ${cudnn_archive} 
+	tar -xvf ${cudnn_archive} 
+	chmod a+r cudnn-linux-x86_64-8.4.0.27_cuda11.6-archive/include/* cudnn-linux-x86_64-8.4.0.27_cuda11.6-archive/lib/*
+	cp cudnn-linux-x86_64-8.4.0.27_cuda11.6-archive/include/* /usr/local/cuda/include
+	cp cudnn-linux-x86_64-8.4.0.27_cuda11.6-archive/lib/* /usr/local/cuda/lib64
 
 #------------ download gpu-burn
 	git clone https://github.com/wilicc/gpu-burn
