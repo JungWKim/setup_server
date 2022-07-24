@@ -39,7 +39,6 @@ if [ ${gpu_presence} = yes ] || [ ${gpu_presence} = y ] ; then
 
 #----------- download nvidia driver / cuda / cudnn installation files
 
-	apt remove Nvidia* && sudo apt autoremove
 	apt update
 	apt install -y build-essential
 	apt install -y linux-headers-generic
